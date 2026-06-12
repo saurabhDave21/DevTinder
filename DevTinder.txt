@@ -1,0 +1,7 @@
+Here we are create two Microservices like frontend and backend where user can /getProfile and many more things
+
+LLD=>lowel level design
+
+*user need to register with field like fname lname emailid password age gender
+*connectionrequest has some status and from and to whom from and to 
+
