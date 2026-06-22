@@ -42,7 +42,7 @@ authRouter.post("/login",async (req,res)=>{
         else{
             const token = user.getJWT()
             res.cookie("token",token)
-            res.send("Login Successfully")
+            res.status(200).json({message:"Successfully login",data:user})
         }
     }
     catch(err){
@@ -51,8 +51,8 @@ authRouter.post("/login",async (req,res)=>{
 })
 
 authRouter.get("/logout",async (req,res)=>{
-  res.clearCookie("token")
-  res.send("Logout Successfully")
+  res.cookie("token",null)
+  res.status(200).json({message:"Logout Successfully"})
 })
 
 module.exports = authRouter

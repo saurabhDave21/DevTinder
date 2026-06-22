@@ -10,6 +10,7 @@ const ALLOW_PUBLIC_DATA = [
   "gender",
   "skils",
   "about",
+  "photoURL"
 ];
 userRouter.get("/user/request/received", isUserAuth, async (req, res) => {
   try {
