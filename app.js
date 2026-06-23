@@ -1,4 +1,6 @@
+require('dotenv').config()
 require("./DB/connectDB");
+// require("./utils/cornJobs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/auth");
@@ -25,6 +27,6 @@ app.use("/",requestRouter)
 app.use("/",userRouter)
 
 
-app.listen(7777, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server is Start");
 });

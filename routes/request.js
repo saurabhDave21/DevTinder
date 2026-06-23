@@ -4,7 +4,7 @@ const { StatusVaild } = require("../utils/vaildate");
 const RequestModal = require("../Model/ConnectionSchema");
 const requestRouter = express.Router();
 const userModal = require("../Model/userSchema");
-
+const sendEmail = require("../utils/sendEmail");
 requestRouter.post(
   "/request/send/:status/:toUserID",
   isUserAuth,
@@ -34,6 +34,8 @@ requestRouter.post(
         status,
       });
       const data = await request.save();
+      // const response = await sendEmail.run("Your Sending Request", `${req.user.firstName} is ${status} to ${toUserExists.firstName}`);
+      console.log(response);
       res.status(201).json({
         message: `${req.user.firstName} is ${status} to ${toUserExists.firstName}`,
         data,
@@ -68,7 +70,7 @@ requestRouter.post(
 
       const toUserIdMatch =
         isValidRequest.toUserID?.toString() === isLoginUser._id.toString();
-      
+
       if (!reqIdMatch) {
         return res.status(404).json({
           message: `Invalid RequestID: ${ReqID}`,
@@ -80,13 +82,11 @@ requestRouter.post(
           message: "User ID does not match",
         });
       }
-      isValidRequest.status = status
-      const data = await isValidRequest.save()
-      res
-        .status(200)
-        .json({ message: "Connection is" + status, data });
+      isValidRequest.status = status;
+      const data = await isValidRequest.save();
+      res.status(200).json({ message: "Connection is" + status, data });
     } catch (err) {
-      res.status(400).json({ message: "Something Went Wrong"+err.message   });
+      res.status(400).json({ message: "Something Went Wrong" + err.message });
     }
   },
 );

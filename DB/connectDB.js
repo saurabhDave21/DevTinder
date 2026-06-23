@@ -1,11 +1,16 @@
-const { mongoose } = require("mongoose")
+const mongoose = require("mongoose");
 
-const url = "mongodb+srv://SD:XxRcwOTz84dufD09@backendpart.kjxcowp.mongodb.net/DevTinder"
+const url = process.env.MONGO_URI;
 
-const connectDB = async () =>{
-    const res = await mongoose.connect(url)
-    console.log("Successfully Connect to DB")
-}
+const connectDB = async () => {
+    try {
+        await mongoose.connect(url);
+        console.log("Successfully connected to DB");
+    } catch (err) {
+        console.error("DB connection error:", err.message);
+        process.exit(1);
+    }
+};
 
-connectDB()
-module.exports = connectDB
+connectDB();
+module.exports = connectDB;
